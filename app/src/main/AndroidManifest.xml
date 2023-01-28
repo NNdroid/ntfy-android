@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="io.heckel.ntfy">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -21,7 +20,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-            android:name=".app.Application"
+            android:name="app.fjj.ntfy.app.Application"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -33,7 +32,7 @@
 
         <!-- Main activity -->
         <activity
-                android:name=".ui.MainActivity"
+                android:name="app.fjj.ntfy.ui.MainActivity"
                 android:label="@string/app_name"
             android:exported="true">
             <intent-filter>
@@ -44,12 +43,12 @@
 
         <!-- Detail activity -->
         <activity
-                android:name=".ui.DetailActivity"
-                android:parentActivityName=".ui.MainActivity"
+                android:name="app.fjj.ntfy.ui.DetailActivity"
+                android:parentActivityName="app.fjj.ntfy.ui.MainActivity"
                 android:exported="true">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".ui.MainActivity"/>
+                    android:value="app.fjj.ntfy.ui.MainActivity"/>
 
             <!-- Open ntfy:// links with the app -->
             <intent-filter android:label="@string/app_name">
@@ -62,21 +61,21 @@
 
         <!-- Settings activity -->
         <activity
-                android:name=".ui.SettingsActivity"
-                android:parentActivityName=".ui.MainActivity">
+                android:name="app.fjj.ntfy.ui.SettingsActivity"
+                android:parentActivityName="app.fjj.ntfy.ui.MainActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".ui.MainActivity"/>
+                    android:value="app.fjj.ntfy.ui.MainActivity"/>
         </activity>
 
         <!-- Detail settings activity -->
         <activity
-                android:name=".ui.DetailSettingsActivity"
-                android:parentActivityName=".ui.DetailActivity">
+                android:name="app.fjj.ntfy.ui.DetailSettingsActivity"
+                android:parentActivityName="app.fjj.ntfy.ui.DetailActivity">
         </activity>
 
         <!-- Share file activity, incoming files/shares -->
-        <activity android:name=".ui.ShareActivity" android:exported="true">
+        <activity android:name="app.fjj.ntfy.ui.ShareActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -90,16 +89,16 @@
 
         <!-- Hack: Activity used for "view" action button with "clear=true" (to be able to cancel notifications and show a URL) -->
         <activity
-                android:name=".msg.NotificationService$ViewActionWithClearActivity"
+                android:name="app.fjj.ntfy.msg.NotificationService$ViewActionWithClearActivity"
                 android:exported="false">
         </activity>
 
         <!-- Subscriber foreground service for hosts other than ntfy.sh -->
-        <service android:name=".service.SubscriberService"/>
+        <service android:name="app.fjj.ntfy.service.SubscriberService"/>
 
         <!-- Subscriber service restart on reboot -->
         <receiver
-                android:name=".service.SubscriberService$BootStartReceiver"
+                android:name="app.fjj.ntfy.service.SubscriberService$BootStartReceiver"
                 android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -109,13 +108,13 @@
 
         <!-- Subscriber service restart on destruction -->
         <receiver
-                android:name=".service.SubscriberService$AutoRestartReceiver"
+                android:name="app.fjj.ntfy.service.SubscriberService$AutoRestartReceiver"
                 android:enabled="true"
                 android:exported="false"/>
 
         <!-- Broadcast receiver to send messages via intents -->
         <receiver
-                android:name=".msg.BroadcastService$BroadcastReceiver"
+                android:name="app.fjj.ntfy.msg.BroadcastService$BroadcastReceiver"
                 android:enabled="true"
                 android:exported="true">
             <intent-filter>
@@ -125,7 +124,7 @@
 
         <!-- Broadcast receiver for UnifiedPush; must match https://github.com/UnifiedPush/UP-spec/blob/main/specifications.md -->
         <receiver
-                android:name=".up.BroadcastReceiver"
+                android:name="app.fjj.ntfy.up.BroadcastReceiver"
                 android:enabled="true"
                 android:exported="true">
             <intent-filter>
@@ -137,21 +136,21 @@
 
         <!-- Broadcast receiver for the "Download"/"Cancel" attachment action in the notification popup -->
         <receiver
-                android:name=".msg.NotificationService$UserActionBroadcastReceiver"
+                android:name="app.fjj.ntfy.msg.NotificationService$UserActionBroadcastReceiver"
                 android:enabled="true"
                 android:exported="false">
         </receiver>
 
         <!-- Broadcast receiver for when the notification is swiped away (currently only to cancel the insistent sound) -->
         <receiver
-                android:name=".msg.NotificationService$DeleteBroadcastReceiver"
+                android:name="app.fjj.ntfy.msg.NotificationService$DeleteBroadcastReceiver"
                 android:enabled="true"
                 android:exported="false">
         </receiver>
 
         <!-- Firebase messaging (note that this is empty in the F-Droid flavor) -->
         <service
-                android:name=".firebase.FirebaseService"
+                android:name="app.fjj.ntfy.firebase.FirebaseService"
                 android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
